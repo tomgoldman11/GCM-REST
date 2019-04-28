@@ -1,5 +1,9 @@
 package ocsf.server;
 import java.io.*;
+
+import javax.net.ssl.SSLException;
+
+import db.ConnectionDB;
 import ocsf.server.*;
 
 /**
@@ -59,10 +63,20 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
+	  System.out.println("handleMessageFromClient");
 	  System.out.println(msg.toString());
-	  
+		ConnectionDB CDB = new ConnectionDB();
+		try {
+			String AnsFromUsers = CDB.Connect2db(msg);
+			System.out.println("ANSANSNASNANSANASNAS: " + AnsFromUsers);
+			sendToAllClients(AnsFromUsers);
+		} catch (SSLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	  try {
-		client.sendToClient("bla");
+		client.sendToClient(" ********* Welcome To GCM System ********* ");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -107,6 +121,7 @@ public class EchoServer extends AbstractServer
    */
   public void handleMessageFromServerUI(String message)
   {
+	  System.out.println("handleMessageFromServerUI");
     if (message.charAt(0) == '#')
     {
       runCommand(message);
@@ -127,7 +142,7 @@ public class EchoServer extends AbstractServer
   {
     // run commands
     // a series of if statements
-
+	  System.out.println("runCommand");
     if (message.equalsIgnoreCase("#quit"))
     {
       quit();
@@ -210,8 +225,8 @@ public class EchoServer extends AbstractServer
   protected void clientConnected(ConnectionToClient client) 
   {
     // display on server and clients that the client has connected.
-    String msg = "A Client has connected";
-    System.out.println(msg);
+    String msg = "You Are Connected to the server";
+    System.out.println("client connected to the server");
     this.sendToAllClients(msg);
   }
 
