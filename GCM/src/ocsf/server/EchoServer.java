@@ -64,11 +64,10 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
 	  System.out.println("handleMessageFromClient");
-	  System.out.println(msg.toString());
 		ConnectionDB CDB = new ConnectionDB();
 		try {
 			String AnsFromUsers = CDB.Connect2db(msg);
-			System.out.println("ANSANSNASNANSANASNAS: " + AnsFromUsers);
+			System.out.println(AnsFromUsers);
 			sendToAllClients(AnsFromUsers);
 		} catch (SSLException e1) {
 			// TODO Auto-generated catch block

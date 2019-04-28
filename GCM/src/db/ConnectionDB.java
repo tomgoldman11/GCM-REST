@@ -33,15 +33,14 @@ public class ConnectionDB {
 
             /* exercize a */
             
-            System.out.println("----------------------" + msg.toString());
+            System.out.println("----------------------");
             
             ResultSet ansus = stmt.executeQuery(msg.toString());
             while (ansus.next()) {
             	String userID = ansus.getString("userID");
             	String password = ansus.getString("password");
             	String registerDate = ansus.getString("registerDate");
-            	System.out.format("userID: %s password: %s registerDate: %s\n",userID,password,registerDate);
-            	ansUser = userID + " " + password + " ";
+            	ansUser = userID + " " + password;
             }
             
 
