@@ -71,7 +71,6 @@ public class EchoServer extends AbstractServer
 	    System.out.println(msg.toString());
 	    String AnsFromUsers = "";
 		if (msg.toString().charAt(0)=='@'){
-			System.out.println("inside@again");
 			try {
 				AnsFromUsers = CDB.getUserDetails(msg);
 			} catch (SSLException | SQLException e) {
@@ -80,7 +79,6 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		else if(msg.toString().charAt(0)=='%') {
-		    System.out.println("inside%again");
 			try {
 				AnsFromUsers = CDB.getCustomerDetails(msg);
 			} catch (SSLException | SQLException e) {
@@ -88,11 +86,19 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}else if(msg.toString().charAt(0)=='$') {
-		    System.out.println("inside%again");
 			try {
 				CDB.setCustoerDetail(msg);
 				System.out.println("updated");
 				AnsFromUsers="1";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='!') {
+			System.out.println("inside%again");
+			try {
+				AnsFromUsers = CDB.getCustomerCardDetails(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,7 +149,6 @@ public class EchoServer extends AbstractServer
    */
   public void handleMessageFromServerUI(String message)
   {
-	  System.out.println("handleMessageFromServerUI");
     if (message.charAt(0) == '#')
     {
       runCommand(message);
