@@ -23,7 +23,6 @@ public class ConnectionDB {
     public String ansUser;
     public void init() {
     	
-    	
          try {
              Class.forName(JDBC_DRIVER);
              conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -36,7 +35,7 @@ public class ConnectionDB {
          } catch (Exception e) {
              e.printStackTrace();
          }
-    }
+    } // end function init
     public void close() {
     	
     	try {
@@ -47,48 +46,28 @@ public class ConnectionDB {
         } catch (SQLException se) {
             se.printStackTrace();
         }
-    }
+    } // end function close
 
-    public String Connect2db(Object msg) throws SSLException {
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            stmt = conn.createStatement();
-
-
-    
     public String getUserDetails(Object msg) throws SSLException, SQLException {
-            System.out.println("\t============");
-            System.out.println("----------------------");    
-            ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
-            while (ansus.next()) {
-            	String userID = ansus.getString("userID");
-            	String password = ansus.getString("password");
-            	String registerDate = ansus.getString("registerDate");
-            	ansUser ="@ "+ userID + " " + password ;
-            }
-
-            close();
-   
-        return ansUser;
-    }
-    public String getCustomerDetails(Object msg) throws SSLException, SQLException {
-        
-
-            }
-            stmt.close();
-            conn.close();
-            
-
-
-        System.out.println("\t============");
-        System.out.println("customerDB");
-        
+    	
+  		System.out.println("------------------------------------------------------------------------------------------");
         ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
         while (ansus.next()) {
-        	
+        	String userID = ansus.getString("userID");
+        	String password = ansus.getString("password");
+        	String registerDate = ansus.getString("registerDate");
+        	ansUser ="@ "+ userID + " " + password ; // add registerDATE HERE
+        }
+        close();
+    return ansUser;
+    } // end function getUserDetails
+    
+    public String getCustomerDetails(Object msg) throws SSLException, SQLException {
+        
+    	System.out.println("------------------------------------------------------------------------------------------");
+        //System.out.println("customerDB");
+        ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+        while (ansus.next()) {     	
         	String userID = ansus.getString("userID");
         	String cusID = ansus.getString("cusID");
 	      	String purchases = ansus.getString("purchases");
@@ -100,13 +79,12 @@ public class ConnectionDB {
     
     public void setCustoerDetail(Object msg)throws SSLException, SQLException {
     	
-    		System.out.println(msg.toString().substring(1));
-    		System.out.println("customerUpdate");
-    		PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
-    		update.executeUpdate();
-    		update.close();
-    		return;
-
+		//System.out.println(msg.toString().substring(1));
+		System.out.println("----- ExecutingCustomerUpdate -----");
+		PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+		update.executeUpdate();
+		update.close();
+		return;
     }
     	
-}
+} // end class ConnectionDB
