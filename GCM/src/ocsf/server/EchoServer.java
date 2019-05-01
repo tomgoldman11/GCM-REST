@@ -1,5 +1,6 @@
 package ocsf.server;
 import java.io.*;
+import java.sql.SQLException;
 
 import javax.net.ssl.SSLException;
 
@@ -24,7 +25,8 @@ public class EchoServer extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT =5555;
-  
+  ConnectionDB CDB = new ConnectionDB();
+
   /**
    * The interface type variable. It allows the implementation of 
    * the display method in the client.
@@ -49,6 +51,7 @@ public class EchoServer extends AbstractServer
   public EchoServer(int port) throws IOException
   {
     super(port);
+	
   }
 
   
@@ -63,23 +66,43 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
-	  System.out.println("handleMessageFromClient");
-		ConnectionDB CDB = new ConnectionDB();
-		try {
-			String AnsFromUsers = CDB.Connect2db(msg);
+	    System.out.println("handleMessageFromClient");
+	    CDB.init();
+	    System.out.println(msg.toString());
+	    String AnsFromUsers = "";
+		if (msg.toString().charAt(0)=='@'){
+			System.out.println("inside@again");
+			try {
+				AnsFromUsers = CDB.getUserDetails(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='%') {
+		    System.out.println("inside%again");
+			try {
+				AnsFromUsers = CDB.getCustomerDetails(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(msg.toString().charAt(0)=='$') {
+		    System.out.println("inside%again");
+			try {
+				CDB.setCustoerDetail(msg);
+				System.out.println("updated");
+				AnsFromUsers="1";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 			System.out.println(AnsFromUsers);
 			sendToAllClients(AnsFromUsers);
-		} catch (SSLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
 		
-	  try {
-		client.sendToClient(" ********* Welcome To GCM System ********* ");
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+
 //    if (msg.toString().startsWith("#login "))
 //    {
 //      if (client.getInfo("loginID") != null)

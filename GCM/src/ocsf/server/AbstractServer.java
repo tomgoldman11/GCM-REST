@@ -5,7 +5,11 @@
 package ocsf.server;
 
 import java.net.*;
+import java.sql.SQLException;
 import java.util.*;
+
+import javax.net.ssl.SSLException;
+
 import java.io.*;
 
 /**
@@ -431,9 +435,11 @@ public abstract class AbstractServer implements Runnable
    * @param msg   the message sent.
    * @param client the connection connected to the client that
    *  sent the message.
+ * @throws SSLException 
+ * @throws SQLException 
    */
   protected abstract void handleMessageFromClient(
-    Object msg, ConnectionToClient client);
+    Object msg, ConnectionToClient client) throws SSLException, SQLException;
 
 
 // METHODS TO BE USED FROM WITHIN THE FRAMEWORK ONLY ----------------
@@ -449,9 +455,11 @@ public abstract class AbstractServer implements Runnable
    * @param msg   the message sent.
    * @param client the connection connected to the client that
    *  sent the message.
+ * @throws SQLException 
+ * @throws SSLException 
    */
   final synchronized void receiveMessageFromClient(
-    Object msg, ConnectionToClient client)
+    Object msg, ConnectionToClient client) throws SSLException, SQLException
   {
     this.handleMessageFromClient(msg, client);
   }
