@@ -49,13 +49,19 @@ public class ConnectionDB {
         }
     }
 
+    public String Connect2db(Object msg) throws SSLException {
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+
+
     
     public String getUserDetails(Object msg) throws SSLException, SQLException {
-       
-
             System.out.println("\t============");
-            System.out.println("----------------------");
-            
+            System.out.println("----------------------");    
             ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
             while (ansus.next()) {
             	String userID = ansus.getString("userID");
@@ -71,6 +77,12 @@ public class ConnectionDB {
     public String getCustomerDetails(Object msg) throws SSLException, SQLException {
         
 
+            }
+            stmt.close();
+            conn.close();
+            
+
+
         System.out.println("\t============");
         System.out.println("customerDB");
         
@@ -82,10 +94,7 @@ public class ConnectionDB {
 	      	String purchases = ansus.getString("purchases");
 	      	ansUser = "% " + userID + " " + cusID + " " + purchases;
         }
-
         close();
-
-
     return ansUser;
     }
     
@@ -97,6 +106,7 @@ public class ConnectionDB {
     		update.executeUpdate();
     		update.close();
     		return;
+
     }
     	
 }
