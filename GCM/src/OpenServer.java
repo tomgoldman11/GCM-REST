@@ -1,11 +1,7 @@
 import java.io.IOException;
-
-import javax.net.ssl.SSLException;
-
-import db.ConnectionDB;
 import ocsf.server.EchoServer;
 
-public class meshi {
+public class OpenServer {
 	public static void main(String[] args) {
 		try {	
 			EchoServer es = new EchoServer(5555);
