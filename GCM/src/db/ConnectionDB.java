@@ -21,6 +21,7 @@ public class ConnectionDB {
     Connection conn = null;
     Statement stmt = null;
     public String ansUser;
+    public String MaxcusID;
     public void init() {
     	
          try {
@@ -65,7 +66,6 @@ public class ConnectionDB {
     public String getCustomerCardDetails(Object msg) throws SSLException, SQLException {
         
     	System.out.println("------------------------------------------------------------------------------------------");
-        //System.out.println("customerDB");
         ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
         while (ansus.next()) {     	
         	String cusID = ansus.getString("cusID");
@@ -82,7 +82,6 @@ public class ConnectionDB {
 public String getCustomerDetails(Object msg) throws SSLException, SQLException {
         
     	System.out.println("------------------------------------------------------------------------------------------");
-        //System.out.println("customerDB");
         ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
         while (ansus.next()) {     	
         	String userID = ansus.getString("userID");
@@ -93,14 +92,41 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
         close();
     return ansUser;
     }
-    public void setCustoerDetail(Object msg)throws SSLException, SQLException {
+
+    public void setCustomerDetail(Object msg)throws SSLException, SQLException {
     	
-		//System.out.println(msg.toString().substring(1));
 		System.out.println("----- ExecutingCustomerUpdate -----");
 		PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
 		update.executeUpdate();
 		update.close();
 		return;
     }
-    	
+    
+	 public void insertUser(Object msg) throws SSLException, SQLException {
+	    	
+		 System.out.println("----- InsertingNewUser -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	 
+	 public void insertCustomer(Object msg) throws SSLException, SQLException {
+	    	
+		 System.out.println("----- InsertingNewCustomer -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	 
+	 public String getMaxcusID (Object msg) throws SSLException, SQLException { 
+		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		 while (ansus.next()) {     	
+    	 	MaxcusID = ansus.getString("cusID");
+		 }	
+		 
+	     close();
+	     return MaxcusID;
+	 }
 } // end class ConnectionDB

@@ -87,7 +87,7 @@ public class EchoServer extends AbstractServer
 			}
 		}else if(msg.toString().charAt(0)=='$') {
 			try {
-				CDB.setCustoerDetail(msg);
+				CDB.setCustomerDetail(msg);
 				System.out.println("updated");
 				AnsFromUsers="1";
 			} catch (SSLException | SQLException e) {
@@ -96,9 +96,32 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		else if(msg.toString().charAt(0)=='!') {
-			System.out.println("inside%again");
 			try {
 				AnsFromUsers = CDB.getCustomerCardDetails(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='-') {
+			try {
+				CDB.insertUser(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='+') {
+			try {
+				CDB.insertCustomer(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='(') {
+			try {
+				AnsFromUsers ="(" + CDB.getMaxcusID(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
