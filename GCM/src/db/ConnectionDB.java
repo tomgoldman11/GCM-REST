@@ -22,7 +22,7 @@ public class ConnectionDB {
     Connection conn = null;
     Statement stmt = null;
     public String ansUser;
-    public String MaxcusID;
+    public String MaxcusID ="";
     
     public void init() {
     	
@@ -128,7 +128,7 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 		 System.out.println("----- GettingnMaxcusID -----");
 		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
 		 while (ansus.next()) {     	
-    	 	MaxcusID += ansus.getString("cusID");
+    	 	MaxcusID += ansus.getString(1);
 		 }	
 		 System.out.println("THIS IS MAXCUSID : " + MaxcusID );
 	     close();
