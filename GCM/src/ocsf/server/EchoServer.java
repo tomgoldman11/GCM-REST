@@ -121,7 +121,7 @@ public class EchoServer extends AbstractServer
 		}
 		else if(msg.toString().charAt(0)=='(') {
 			try {
-				AnsFromUsers ="(" + CDB.getMaxcusID(msg);
+				AnsFromUsers = CDB.getMaxcusID(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
