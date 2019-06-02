@@ -128,7 +128,7 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 		 System.out.println("----- GettingnMaxcusID -----");
 		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
 		 while (ansus.next()) {     	
-    	 	MaxcusID += ansus.getString(1);
+    	 	MaxcusID = ansus.getString(1);
 		 }	
 		 System.out.println("THIS IS MAXCUSID : " + MaxcusID );
 	     close();

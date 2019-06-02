@@ -1,23 +1,32 @@
 package models;
-import db.ConstantQueries;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 /**
  * @author tomgo
  *
  */
 public class User {
-	private String userID ;
-	private String password ;
-	private Date registerDate;
-	
-	
+	private String userID;
+	private String password;
+	private String registerDate;
+
+	public User() {
+	}
+
 	public User(String user, String pass) {
 		this.userID = user;
 		this.password = pass;
 	}
-	
+
+	public User(String user, String pass, String registerDate) {
+		this.userID = user;
+		this.password = pass;
+		this.registerDate = registerDate;
+	}
+
 	public String getUserID() {
 		return userID;
 	}
@@ -34,18 +43,12 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getRegisterDate() {
+	public String getRegisterDate() {
 		return registerDate;
 	}
 
-	public void setRegisterDate(Date registerDate) {
+	public void setRegisterDate(String registerDate) {
 		this.registerDate = registerDate;
 	}
-	
-	   public User(ResultSet resultSet) throws SQLException {
-	        this(resultSet.getString(ConstantQueries.USERS.COL_ID),
-	               resultSet.getString(ConstantQueries.USERS.COL_PASSWORD));
-	    }
-
 
 }
