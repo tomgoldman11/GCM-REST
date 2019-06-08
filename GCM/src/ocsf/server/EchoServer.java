@@ -1,10 +1,18 @@
 package ocsf.server;
 import java.io.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.SSLException;
 
 import db.ConnectionDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import models.Catalog;
+import models.City;
+import models.Location;
 import ocsf.server.*;
 
 /**
@@ -26,6 +34,11 @@ public class EchoServer extends AbstractServer
    */
   final public static int DEFAULT_PORT =5555;
   ConnectionDB CDB = new ConnectionDB();
+  
+  
+   //ArrayList<Location> LocationList = new ArrayList<>();
+  	
+  
 
   /**
    * The interface type variable. It allows the implementation of 
@@ -69,10 +82,11 @@ public class EchoServer extends AbstractServer
 	    System.out.println("handleMessageFromClient");
 	    CDB.init();
 	    System.out.println(msg.toString());
-	    String AnsFromUsers = "";
+	    String StringFromDB = "";
+	    ObservableList<City> ObservableListFromDB = FXCollections.observableArrayList();
 		if (msg.toString().charAt(0)=='@'){
 			try {
-				AnsFromUsers = CDB.getUserDetails(msg);
+				StringFromDB = CDB.getUserDetails(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -80,7 +94,7 @@ public class EchoServer extends AbstractServer
 		}
 		else if(msg.toString().charAt(0)=='%') {
 			try {
-				AnsFromUsers = CDB.getCustomerDetails(msg);
+				StringFromDB = CDB.getCustomerDetails(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,7 +103,7 @@ public class EchoServer extends AbstractServer
 			try {
 				CDB.setCustomerDetail(msg);
 				System.out.println("updated");
-				AnsFromUsers="1";
+				StringFromDB="1";
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -97,7 +111,7 @@ public class EchoServer extends AbstractServer
 		}
 		else if(msg.toString().charAt(0)=='!') {
 			try {
-				AnsFromUsers = CDB.getCustomerCardDetails(msg);
+				StringFromDB = CDB.getCustomerCardDetails(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -106,7 +120,7 @@ public class EchoServer extends AbstractServer
 		else if(msg.toString().charAt(0)=='-') {
 			try {
 				CDB.insertUser(msg);
-				AnsFromUsers = "42";
+				StringFromDB = "42";
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -115,7 +129,7 @@ public class EchoServer extends AbstractServer
 		else if(msg.toString().charAt(0)=='+') {
 			try {
 				CDB.insertCustomer(msg);
-				AnsFromUsers = "42";
+				StringFromDB = "42";
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -124,7 +138,7 @@ public class EchoServer extends AbstractServer
 		else if(msg.toString().charAt(0)==')') {
 			try {
 				CDB.insertCustomerCard(msg);
-				AnsFromUsers = "42";
+				StringFromDB = "42";
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -132,48 +146,36 @@ public class EchoServer extends AbstractServer
 		}
 		else if(msg.toString().charAt(0)=='(') {
 			try {
-				AnsFromUsers ="(" + CDB.getMaxcusID(msg);
+				StringFromDB ="(" + CDB.getMaxcusID(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-			System.out.println(AnsFromUsers);
-			sendToAllClients(AnsFromUsers);
-
-		
-
-//    if (msg.toString().startsWith("#login "))
-//    {
-//      if (client.getInfo("loginID") != null)
-//      {
-//        try
-//        {
-//          client.sendToClient("You are already logged in.");
-//        }
-//        catch (IOException e)
-//        {
-//        }
-//        return;
-//      }
-//      client.setInfo("loginID", msg.toString().substring(7));
-//    }
-//    else 
-//    {
-//      if (client.getInfo("loginID") == null)
-//      {
-//        try
-//        {
-//          client.sendToClient("You need to login before you can chat.");
-//          client.close();
-//        }
-//        catch (IOException e) {}
-//        return;
-//      }
-//      System.out.println("Message received: " + msg + " from \"" + 
-//        client.getInfo("loginID") + "\" " + client);
-//      this.sendToAllClients(client.getInfo("loginID") + "> " + msg);
-//    }
+		else if(msg.toString().charAt(0)=='=') {
+			try {
+				CDB.updateCustomerCardCustomerUser(msg);
+				StringFromDB ="42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='*') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getCities(msg);
+				StringFromDB ="42";
+			//	ll.add("test");
+				sendToAllClients(ArrayListFromDB);			
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+			System.out.println(StringFromDB);
+			sendToAllClients(StringFromDB);
   }
 
   /**

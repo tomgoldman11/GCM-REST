@@ -1,21 +1,49 @@
 package models;
 
+import javafx.scene.control.Button;
+
 public class City {
 	private int cityID;
 	private Map[] maps;
+	private String description;
 	private double mapClusterVersion;
+	private int numberMaps;
+	private int numberTours;
+	private int numberLocations;
 	private double mapClusterPrice;
 	private String cityName;
 	
-	public City(int cityID, Map[] maps, double mapClusterVersion, double mapClusterPrice, String cityName) {
+	private Button download;
+	
+	public City(int cityID, Map[] maps,String description, double mapClusterVersion, int numberMaps, int numberTours, int numberLocations ,  double mapClusterPrice, String cityName, Button download) {
 		super();
 		this.cityID = cityID;
 		this.maps = maps;
+		this.description = description;
 		this.mapClusterVersion = mapClusterVersion;
+		this.numberMaps = numberMaps;
+		this.numberTours = numberTours;
+		this.numberLocations = numberLocations;
 		this.mapClusterPrice = mapClusterPrice;
 		this.cityName = cityName;
+		this.download = download;
 	}
 	
+	public City(int cityID, String description, double mapClusterVersion, int numberMaps, int numberTours, int numberLocations ,  double mapClusterPrice, String cityName, Button download) {
+		super();
+		this.cityID = cityID;
+		this.description = description;
+		this.mapClusterVersion = mapClusterVersion;
+		this.numberMaps = numberMaps;
+		this.numberTours = numberTours;
+		this.numberLocations = numberLocations;
+		this.mapClusterPrice = mapClusterPrice;
+		this.cityName = cityName;
+		this.download = download;
+	}
+	
+	
+
 	public int getCityID() {
 		return cityID;
 	}
@@ -46,9 +74,12 @@ public class City {
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
-	
-	
-	
+	public String getdescription(){
+		return description;
+	}
+	public void setdescription(String description) {
+		this.description = description;
+	}
 	
 	
 	

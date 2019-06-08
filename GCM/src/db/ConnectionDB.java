@@ -2,14 +2,22 @@ package db;
 
 
 import jdk.nashorn.internal.objects.annotations.Where;
+import models.City;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Connection;
 
 import javax.net.ssl.SSLException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 
 public class ConnectionDB {
@@ -23,6 +31,7 @@ public class ConnectionDB {
     Statement stmt = null;
     public String ansUser;
     public String MaxcusID ="";
+    public ArrayList<String> ArrayListFromDB = new ArrayList<String>();
     
     public void init() {
     	
@@ -134,4 +143,43 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 	     close();
 	     return MaxcusID;
 	 }
+	 
+	 public void updateCustomerCardCustomerUser(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- UpdateCustomerCard -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	 
+	public ArrayList<String> getCities (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettingCities -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+
+	
+		while (ansus.next()) {
+			int cityID = ansus.getInt("cityID");
+			String description = ansus.getString("description");
+			double mapClusterVersion = ansus.getDouble("mapsClusterVersion");
+			int numberMaps = ansus.getInt("numMaps");
+			int numberTours = ansus.getInt("numTours");
+			int numberLocations = ansus.getInt("numLocations");
+			double mapClusterPrice = ansus.getDouble("mapsClusterPrice");
+			String cityName = ansus.getString("cityName");
+			//------------------------------------------------------------
+			ArrayListFromDB.add(Integer.toString(cityID));
+			ArrayListFromDB.add(description);
+			ArrayListFromDB.add(Double.toString(mapClusterVersion));
+			ArrayListFromDB.add(Integer.toString(numberMaps));
+			ArrayListFromDB.add(Integer.toString(numberTours));
+			ArrayListFromDB.add(Integer.toString(numberLocations));
+			ArrayListFromDB.add(Double.toString(mapClusterPrice));
+			ArrayListFromDB.add(cityName);
+			// button too? maybe not here
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
 } // end class ConnectionDB
