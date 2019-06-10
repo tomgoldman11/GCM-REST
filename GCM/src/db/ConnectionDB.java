@@ -133,6 +133,22 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 			return;
 	 }
 	 
+	 public void insertOTSub(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingNewOTsub -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	 
+	 public void insertFSub(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingNewFsub -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	 
 	 public String getMaxcusID (Object msg) throws SSLException, SQLException { 
 		 System.out.println("----- GettingnMaxcusID -----");
 		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
@@ -144,6 +160,29 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 	     return MaxcusID;
 	 }
 	 
+	 public String getMaxOTSubID (Object msg) throws SSLException, SQLException { 
+		 System.out.println("----- GettingnMaxOTSubID -----");
+		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		 while (ansus.next()) {     	
+    	 	MaxcusID = ansus.getString(1);
+		 }	
+		 System.out.println("THIS IS MaxOTSubID : " + MaxcusID );
+	     close();
+	     return MaxcusID;
+	 }
+	 
+	 public String getMaxFSubID (Object msg) throws SSLException, SQLException { 
+		 System.out.println("----- GettingnMaxFSubID -----");
+		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		 while (ansus.next()) {     	
+    	 	MaxcusID = ansus.getString(1);
+		 }	
+		 System.out.println("THIS IS MaxOTSubID : " + MaxcusID );
+	     close();
+	     return MaxcusID;
+	 }
+	 
+	 
 	 public void updateCustomerCardCustomerUser(Object msg) throws SSLException, SQLException {
 		 System.out.println("----- UpdateCustomerCard -----");
 			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
@@ -153,10 +192,9 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 	 }
 	 
 	public ArrayList<String> getCities (Object msg) throws SSLException, SQLException {
-		 System.out.println("----- GettingCities -----");
+		System.out.println("----- GettingCities -----");
 		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
-
-	
+		ArrayListFromDB.add("getcities");
 		while (ansus.next()) {
 			int cityID = ansus.getInt("cityID");
 			String description = ansus.getString("description");
@@ -175,7 +213,51 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 			ArrayListFromDB.add(Integer.toString(numberLocations));
 			ArrayListFromDB.add(Double.toString(mapClusterPrice));
 			ArrayListFromDB.add(cityName);
-			// button too? maybe not here
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	public ArrayList<String> getMapsOT (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinMapsOT -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("OTMaps");
+		while (ansus.next()) {
+			int mapID = ansus.getInt("mapID");
+			String mapName = ansus.getString("mapName");
+			String mapDescription = ansus.getString("description");
+			double mapVersion = ansus.getDouble("version");
+			String mapPath = ansus.getString("mapPath");
+			
+			ArrayListFromDB.add(Integer.toString(mapID));
+			ArrayListFromDB.add(mapName);
+			ArrayListFromDB.add(mapDescription);
+			ArrayListFromDB.add(Double.toString(mapVersion));
+			ArrayListFromDB.add(mapPath);
+		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
+	public ArrayList<String> getMapsF (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinMapsF -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("FMaps");
+		while (ansus.next()) {
+			int mapID = ansus.getInt("mapID");
+			String mapName = ansus.getString("mapName");
+			String mapDescription = ansus.getString("description");
+			double mapVersion = ansus.getDouble("version");
+			String mapPath = ansus.getString("mapPath");
+			
+			ArrayListFromDB.add(Integer.toString(mapID));
+			ArrayListFromDB.add(mapName);
+			ArrayListFromDB.add(mapDescription);
+			ArrayListFromDB.add(Double.toString(mapVersion));
+			ArrayListFromDB.add(mapPath);
+		
 		}
 		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
 		ArrayListFromDB.clear();

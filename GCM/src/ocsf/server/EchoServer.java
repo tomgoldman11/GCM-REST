@@ -99,7 +99,8 @@ public class EchoServer extends AbstractServer
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(msg.toString().charAt(0)=='$') {
+		}
+		else if(msg.toString().charAt(0)=='$') {
 			try {
 				CDB.setCustomerDetail(msg);
 				System.out.println("updated");
@@ -144,6 +145,27 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+		else if(msg.toString().charAt(0)=='b') {
+			try {
+				CDB.insertOTSub(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='x') {
+			try {
+				CDB.insertFSub(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		else if(msg.toString().charAt(0)=='(') {
 			try {
 				StringFromDB ="(" + CDB.getMaxcusID(msg);
@@ -152,6 +174,24 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+		else if(msg.toString().charAt(0)=='v') {
+			try {
+				StringFromDB ="v" + CDB.getMaxOTSubID(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='c') {
+			try {
+				StringFromDB ="c" + CDB.getMaxFSubID(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		
 		else if(msg.toString().charAt(0)=='=') {
 			try {
 				CDB.updateCustomerCardCustomerUser(msg);
@@ -166,7 +206,29 @@ public class EchoServer extends AbstractServer
 				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
 				ArrayListFromDB = CDB.getCities(msg);
 				StringFromDB ="42";
-			//	ll.add("test");
+				sendToAllClients(ArrayListFromDB);			
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(msg.toString().charAt(0)=='m') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getMapsOT(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);			
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='n') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getMapsF(msg);
+				StringFromDB ="42";
 				sendToAllClients(ArrayListFromDB);			
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
