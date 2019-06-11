@@ -246,12 +246,14 @@ public class ConnectionDB {
 			String mapDescription = ansus.getString("description");
 			double mapVersion = ansus.getDouble("version");
 			String mapPath = ansus.getString("mapPath");
+			double price = ansus.getDouble("purchasePrice");
 			
 			ArrayListFromDB.add(Integer.toString(mapID));
 			ArrayListFromDB.add(mapName);
 			ArrayListFromDB.add(mapDescription);
 			ArrayListFromDB.add(Double.toString(mapVersion));
 			ArrayListFromDB.add(mapPath);
+			ArrayListFromDB.add((Double.toString(price)));
 		
 		}
 		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
@@ -269,12 +271,16 @@ public class ConnectionDB {
 			String mapDescription = ansus.getString("description");
 			double mapVersion = ansus.getDouble("version");
 			String mapPath = ansus.getString("mapPath");
-			
+			String till = ansus.getString("expireDate");
+			double price = ansus.getDouble("purchasePrice");
+
 			ArrayListFromDB.add(Integer.toString(mapID));
 			ArrayListFromDB.add(mapName);
 			ArrayListFromDB.add(mapDescription);
 			ArrayListFromDB.add(Double.toString(mapVersion));
 			ArrayListFromDB.add(mapPath);
+			ArrayListFromDB.add(till);
+			ArrayListFromDB.add((Double.toString(price)));
 		
 		}
 		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
