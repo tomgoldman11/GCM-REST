@@ -118,6 +118,16 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+		else if(msg.toString().charAt(0)=='E') {
+			try {
+				StringFromDB = CDB.getEmployeeDetails(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+
 		else if(msg.toString().charAt(0)=='-') {
 			try {
 				CDB.insertUser(msg);

@@ -88,7 +88,7 @@ public class ConnectionDB {
     return ansUser;
     }
     
-public String getCustomerDetails(Object msg) throws SSLException, SQLException {        
+	public String getCustomerDetails(Object msg) throws SSLException, SQLException {        
     	System.out.println("----- GetCustomerDetails -----");
         ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
         while (ansus.next()) {     	
@@ -97,9 +97,27 @@ public String getCustomerDetails(Object msg) throws SSLException, SQLException {
 	      	String purchases = ansus.getString("purchases");
 	      	ansUser = "% " + userID + " " + cusID + " " + purchases;
         }
-        close();
-    return ansUser;
-    }
+	    close();
+	    return ansUser;
+		}
+	
+	public String getEmployeeDetails(Object msg) throws SSLException, SQLException { 	
+			System.out.println("----- GetEmployeeDetails -----");
+	    ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+	    ansUser = "42";
+	    while (ansus.next()) {
+	    	String userID = ansus.getString("userID");
+	    	String employeeID = ansus.getString("employeeID");
+	    	String roleID = ansus.getString("roleID");
+	    	String jobTitle = ansus.getString("jobTitle");
+	    	String fullName = ansus.getString("fullName");
+	    	String email = ansus.getString("email");
+	    	String phone = ansus.getString("phone");
+	    	ansUser ="E "+ userID + " " + employeeID + " " + roleID + " " + jobTitle + " " + fullName + " " + email + " " + phone ; // add registerDATE HERE
+	    }
+		close();
+		return ansUser;
+		} // end function getEmployeeDetails
 
     public void setCustomerDetail(Object msg)throws SSLException, SQLException {
 		System.out.println("----- ExecutingCustomerUpdate -----");
