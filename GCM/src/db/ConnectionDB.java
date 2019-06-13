@@ -31,6 +31,7 @@ public class ConnectionDB {
     Statement stmt = null;
     public String ansUser;
     public String MaxcusID ="";
+    public String MaxRequestID = "";
     public ArrayList<String> ArrayListFromDB = new ArrayList<String>();
     
     public void init() {
@@ -167,6 +168,30 @@ public class ConnectionDB {
 			return;
 	 }
 	 
+	 public void insertRequest(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingNewRequest -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	
+	public void insertCityRequest(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingNewCityRequest -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 } 
+	 
+	public void insertMapRequest(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingNewMapRequest -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
+	 
 	 public String getMaxcusID (Object msg) throws SSLException, SQLException { 
 		 System.out.println("----- GettingnMaxcusID -----");
 		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
@@ -198,6 +223,17 @@ public class ConnectionDB {
 		 System.out.println("THIS IS MaxOTSubID : " + MaxcusID );
 	     close();
 	     return MaxcusID;
+	 }
+	 
+	 public String getMaxRequestID (Object msg) throws SSLException, SQLException { 
+		 System.out.println("----- GettingnMaxRequestID -----");
+		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		 while (ansus.next()) {     	
+			 MaxRequestID = ansus.getString(1);
+		 }	
+		 System.out.println("THIS IS MAXREQUESTID : " + MaxRequestID );
+	     close();
+	     return MaxRequestID;
 	 }
 	 
 	 

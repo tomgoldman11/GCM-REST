@@ -202,6 +202,47 @@ public class EchoServer extends AbstractServer
 			}
 		}	
 		
+		else if(msg.toString().charAt(0)=='3') {
+			try {
+				StringFromDB ="3" + CDB.getMaxRequestID(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='r') {
+			try {
+				CDB.insertRequest(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='i') {
+			try {
+				CDB.insertCityRequest(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='g') {
+			try {
+				CDB.insertMapRequest(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		else if(msg.toString().charAt(0)=='=') {
 			try {
 				CDB.updateCustomerCardCustomerUser(msg);
