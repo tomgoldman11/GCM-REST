@@ -310,6 +310,7 @@ public class ConnectionDB {
 		ArrayListFromDB.clear();
 		return copyArrayList;
 	}
+	
 	public ArrayList<String> getEmployees (Object msg) throws SSLException, SQLException {
 		 System.out.println("----- GettinEmployees -----");
 		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
@@ -331,6 +332,50 @@ public class ConnectionDB {
 			ArrayListFromDB.add(email);
 			ArrayListFromDB.add(phone);
 		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
+	public ArrayList<String> getLocationsForMap (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinLocationsForMap -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getLocationsForMap");
+		while (ansus.next()) {
+			int locationID = ansus.getInt("locationID");
+			String locationName = ansus.getString("locationName");
+			String classification = ansus.getString("classification");
+			String description = ansus.getString("description");
+			boolean accessibility = ansus.getBoolean("accessibility");
+
+			ArrayListFromDB.add(Integer.toString(locationID));
+			ArrayListFromDB.add(locationName);
+			ArrayListFromDB.add(classification);
+			ArrayListFromDB.add(description);
+			ArrayListFromDB.add(Boolean.toString(accessibility));
+		
+		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
+	public ArrayList<String> getToursForMap (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinToursForMap -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getToursForMap");
+		while (ansus.next()) {
+			int tourID = ansus.getInt("tourID");
+			String description = ansus.getString("description");
+			String visitDuration = ansus.getString("visitDuration");
+			String locationsID = ansus.getString("locationsID");
+		
+			ArrayListFromDB.add(Integer.toString(tourID));
+			ArrayListFromDB.add(description);
+			ArrayListFromDB.add(visitDuration);
+			ArrayListFromDB.add(locationsID);
 		}
 		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
 		ArrayListFromDB.clear();
