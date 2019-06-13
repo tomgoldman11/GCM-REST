@@ -310,6 +310,32 @@ public class ConnectionDB {
 		ArrayListFromDB.clear();
 		return copyArrayList;
 	}
+	public ArrayList<String> getEmployees (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinEmployees -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getEmployees");
+		while (ansus.next()) {
+			String userID = ansus.getString("userID");
+			int employeeID = ansus.getInt("employeeID");
+			int roleID = ansus.getInt("roleID");
+			String jobTitle = ansus.getString("jobTitle");
+			String fullName = ansus.getString("fullName");
+			String email = ansus.getString("email");
+			String phone = ansus.getString("phone");
+
+			ArrayListFromDB.add(userID);
+			ArrayListFromDB.add(Integer.toString(employeeID));
+			ArrayListFromDB.add(Integer.toString(roleID));
+			ArrayListFromDB.add(jobTitle);
+			ArrayListFromDB.add(fullName);
+			ArrayListFromDB.add(email);
+			ArrayListFromDB.add(phone);
+		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
 	
 	
 	
