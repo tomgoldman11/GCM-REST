@@ -272,6 +272,28 @@ public class ConnectionDB {
 		ArrayListFromDB.clear();
 		return copyArrayList;
 	}
+	
+	public ArrayList<String> getRequests (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinRequests -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("Requests");  
+		while (ansus.next()) {
+			int requestID = ansus.getInt("requestID");
+			String requestDescription = ansus.getString("requestDescription");
+			String employeeName = ansus.getString("employeeName");
+			String requestDate = ansus.getString("requestDate");
+
+			
+			ArrayListFromDB.add(Integer.toString(requestID));
+			ArrayListFromDB.add(requestDescription);
+			ArrayListFromDB.add(employeeName);
+			ArrayListFromDB.add(requestDate);		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
 
 	public ArrayList<String> getMaps (Object msg) throws SSLException, SQLException {
 		 System.out.println("----- GettinMaps -----");
