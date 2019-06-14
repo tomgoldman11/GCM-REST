@@ -242,16 +242,16 @@ public class EchoServer extends AbstractServer
 		}
 		
 		
-		
 		else if(msg.toString().charAt(0)=='=') {
 			try {
-				CDB.updateCustomerCardCustomerUser(msg);
+				CDB.updateCustomerCardCustomerUserCity(msg);
 				StringFromDB ="42";
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
 		else if(msg.toString().charAt(0)=='*') {
 			try {
 				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
@@ -263,6 +263,19 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+		else if(msg.toString().charAt(0)=='0') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getCitiesUpdate(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);			
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 		else if(msg.toString().charAt(0)=='>') {
 			try {
@@ -344,6 +357,32 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+		else if(msg.toString().charAt(0)=='7') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getLocations(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='8') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getTours(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		
 			System.out.println(StringFromDB);
 			sendToAllClients(StringFromDB);

@@ -237,7 +237,7 @@ public class ConnectionDB {
 	 }
 	 
 	 
-	 public void updateCustomerCardCustomerUser(Object msg) throws SSLException, SQLException {
+	 public void updateCustomerCardCustomerUserCity(Object msg) throws SSLException, SQLException {
 		 System.out.println("----- UpdateCustomerCard -----");
 			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
 			update.executeUpdate();
@@ -249,6 +249,36 @@ public class ConnectionDB {
 		System.out.println("----- GettingCities -----");
 		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
 		ArrayListFromDB.add("getcities");
+		while (ansus.next()) {
+			int cityID = ansus.getInt("cityID");
+			String description = ansus.getString("description");
+			double mapClusterVersion = ansus.getDouble("mapsClusterVersion");
+			int numberMaps = ansus.getInt("numMaps");
+			int numberTours = ansus.getInt("numTours");
+			int numberLocations = ansus.getInt("numLocations");
+			double mapClusterPrice = ansus.getDouble("mapsClusterPrice");
+			String cityName = ansus.getString("cityName");
+			//------------------------------------------------------------
+			ArrayListFromDB.add(Integer.toString(cityID));
+			ArrayListFromDB.add(description);
+			ArrayListFromDB.add(Double.toString(mapClusterVersion));
+			ArrayListFromDB.add(Integer.toString(numberMaps));
+			ArrayListFromDB.add(Integer.toString(numberTours));
+			ArrayListFromDB.add(Integer.toString(numberLocations));
+			ArrayListFromDB.add(Double.toString(mapClusterPrice));
+			ArrayListFromDB.add(cityName);
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
+	
+	
+	public ArrayList<String> getCitiesUpdate (Object msg) throws SSLException, SQLException {
+		System.out.println("----- GettingCitiesUpdate -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		ArrayListFromDB.add("getcitiesupdate");
 		while (ansus.next()) {
 			int cityID = ansus.getInt("cityID");
 			String description = ansus.getString("description");
@@ -424,6 +454,50 @@ public class ConnectionDB {
 		 System.out.println("----- GettinToursForMap -----");
 		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
 		ArrayListFromDB.add("getToursForMap");
+		while (ansus.next()) {
+			int tourID = ansus.getInt("tourID");
+			String description = ansus.getString("description");
+			String visitDuration = ansus.getString("visitDuration");
+			String locationsID = ansus.getString("locationsID");
+		
+			ArrayListFromDB.add(Integer.toString(tourID));
+			ArrayListFromDB.add(description);
+			ArrayListFromDB.add(visitDuration);
+			ArrayListFromDB.add(locationsID);
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
+	public ArrayList<String> getLocations (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinLocations -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getLocations");
+		while (ansus.next()) {
+			int locationID = ansus.getInt("locationID");
+			String locationName = ansus.getString("locationName");
+			String classification = ansus.getString("classification");
+			String description = ansus.getString("description");
+			boolean accessibility = ansus.getBoolean("accessibility");
+
+			ArrayListFromDB.add(Integer.toString(locationID));
+			ArrayListFromDB.add(locationName);
+			ArrayListFromDB.add(classification);
+			ArrayListFromDB.add(description);
+			ArrayListFromDB.add(Boolean.toString(accessibility));
+		
+		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
+	public ArrayList<String> getTours (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinTours -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getTours");
 		while (ansus.next()) {
 			int tourID = ansus.getInt("tourID");
 			String description = ansus.getString("description");
