@@ -542,6 +542,42 @@ public class ConnectionDB {
 		return copyArrayList;
 	}
 	
+	public ArrayList<String> getF_SubStats (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinF_substats -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getFsubstats");
+		while (ansus.next()) {
+			int cityID = ansus.getInt("cityID");
+			String cityName = ansus.getString("cityName");
+			int numOfPurchases = ansus.getInt("countF");
+		
+			ArrayListFromDB.add(Integer.toString(cityID));
+			ArrayListFromDB.add(cityName);
+			ArrayListFromDB.add(Integer.toString(numOfPurchases));
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	} 
+	
+	public ArrayList<String> getOT_SubStats (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinOT_substats -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("getOTsubstats");
+		while (ansus.next()) {
+			int cityID = ansus.getInt("cityID");
+			String cityName = ansus.getString("cityName");
+			int numOfPurchases = ansus.getInt("countF");
+		
+			ArrayListFromDB.add(Integer.toString(cityID));
+			ArrayListFromDB.add(cityName);
+			ArrayListFromDB.add(Integer.toString(numOfPurchases));
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
 	public String getCityRequest(Object msg) throws SSLException, SQLException { 	
 		System.out.println("----- GetCityRequestDetails -----");
 		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));

@@ -406,6 +406,32 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		
+		else if(msg.toString().charAt(0)=='W') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getF_SubStats(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='R') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getOT_SubStats(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		else if(msg.toString().charAt(0)=='U') {
 			try {
 				StringFromDB ="U!" + CDB.getCityRequest(msg);
@@ -441,6 +467,8 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+		
 		
 			System.out.println(StringFromDB);
 			sendToAllClients(StringFromDB);
