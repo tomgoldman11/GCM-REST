@@ -301,6 +301,18 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		
+		else if(msg.toString().charAt(0)=='X') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getMaps2(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);			
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		else if(msg.toString().charAt(0)=='m') {
 			try {
 				ArrayList<String> ArrayListFromDB = new ArrayList<String>();

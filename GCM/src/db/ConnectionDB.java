@@ -346,6 +346,27 @@ public class ConnectionDB {
 		return copyArrayList;
 	}
 	
+	public ArrayList<String> getMaps2 (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinMaps2 -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("Maps2");  
+		while (ansus.next()) {
+			int mapID = ansus.getInt("mapID");
+			String mapName = ansus.getString("mapName");
+			String mapDescription = ansus.getString("description");
+			double mapVersion = ansus.getDouble("version");	
+			
+			ArrayListFromDB.add(Integer.toString(mapID));
+			ArrayListFromDB.add(mapName);
+			ArrayListFromDB.add(mapDescription);
+			ArrayListFromDB.add(Double.toString(mapVersion));
+		
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
 	
 	public ArrayList<String> getMapsOT (Object msg) throws SSLException, SQLException {
 		 System.out.println("----- GettinMapsOT -----");
