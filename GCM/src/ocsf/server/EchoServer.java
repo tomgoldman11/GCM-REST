@@ -176,6 +176,18 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		
+		else if(msg.toString().charAt(0)=='Q') {
+			try {
+				CDB.insertCity(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		else if(msg.toString().charAt(0)=='(') {
 			try {
 				StringFromDB ="(" + CDB.getMaxcusID(msg);
@@ -394,7 +406,41 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		
+		else if(msg.toString().charAt(0)=='U') {
+			try {
+				StringFromDB ="U!" + CDB.getCityRequest(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
+		else if(msg.toString().charAt(0)=='P') {
+			try {
+				StringFromDB ="P!" + CDB.getMapRequest(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='S') {
+			try {
+				StringFromDB ="S!" + CDB.getLocationRequest(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='V') {
+			try {
+				StringFromDB ="V!" + CDB.getTourRequest(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 			System.out.println(StringFromDB);
 			sendToAllClients(StringFromDB);

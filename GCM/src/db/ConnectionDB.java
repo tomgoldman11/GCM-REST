@@ -191,6 +191,13 @@ public class ConnectionDB {
 			update.close();
 			return;
 	 }
+	public void insertCity(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingCity -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 }
 	 
 	 public String getMaxcusID (Object msg) throws SSLException, SQLException { 
 		 System.out.println("----- GettingnMaxcusID -----");
@@ -534,6 +541,70 @@ public class ConnectionDB {
 		ArrayListFromDB.clear();
 		return copyArrayList;
 	}
+	
+	public String getCityRequest(Object msg) throws SSLException, SQLException { 	
+		System.out.println("----- GetCityRequestDetails -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		while (ansus.next()) {
+			String cityID = ansus.getString("cityID");
+			String description = ansus.getString("description");
+			String mapClusterVersion = ansus.getString("mapsClusterVersion");
+			String numberMaps = ansus.getString("numMaps");
+			String numberTours = ansus.getString("numTours");
+			String numberLocations = ansus.getString("numLocations");
+			String mapClusterPrice = ansus.getString("mapsClusterPrice");
+			String cityName = ansus.getString("cityName");
+			ansUser = cityID + "!" + description + "!" + mapClusterVersion + "!" + numberMaps + "!" 
+			+ numberTours + "!" + numberLocations + "!" + mapClusterPrice + "!" + cityName ; // add registerDATE HERE
+		}
+		return ansUser;
+	}
+	
+	public String getMapRequest(Object msg) throws SSLException, SQLException { 	
+		System.out.println("----- GetMapRequestDetails -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		while (ansus.next()) {
+			String mapID = ansus.getString("mapID");
+			String cityID = ansus.getString("cityID");
+			String mapName = ansus.getString("mapName");
+			String description = ansus.getString("description");
+			String version = ansus.getString("version");
+			String mapPath = ansus.getString("mapPath");
+			ansUser = mapID + "!"  + cityID + "!" + mapName + "!" + description + "!" + version + "!" + mapPath ; // add registerDATE HERE
+		}
+		return ansUser;
+	}
+	
+	public String getLocationRequest(Object msg) throws SSLException, SQLException { 	
+		System.out.println("----- GetLocationRequestDetails -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		while (ansus.next()) {
+			String locationID = ansus.getString("locationID");
+			String locationName = ansus.getString("locationName");
+			String classification = ansus.getString("classification");
+			String description = ansus.getString("description");
+			String accessibility = ansus.getString("accessibility");
+			ansUser = locationID + "!"  + locationName + "!" + classification + "!" + description 
+					+ "!" + description + "!" + accessibility ; // add registerDATE HERE
+		}
+		return ansUser;
+	}
+	public String getTourRequest(Object msg) throws SSLException, SQLException { 	
+		System.out.println("----- GetTourRequestDetails -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		while (ansus.next()) {
+			String tourID = ansus.getString("tourID");
+			String description = ansus.getString("description");
+			String visitDuration = ansus.getString("visitDuration");
+			String locationsID = ansus.getString("locationsID");
+			String cityID = ansus.getString("cityID");
+
+			ansUser = tourID + "!"  + description + "!" + visitDuration + "!" +  cityID  + "!" +locationsID; // add registerDATE HERE
+		}
+		return ansUser;
+	}
+	
+	
 	
 	
 	
