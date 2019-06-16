@@ -186,6 +186,16 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		
+		else if(msg.toString().charAt(0)=='I') {
+			try {
+				CDB.insertCreditCard(msg);
+				StringFromDB = "42";
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 		
 		else if(msg.toString().charAt(0)=='(') {
@@ -222,6 +232,17 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
+		
+
+		else if(msg.toString().charAt(0)=='M') {
+			try {
+				StringFromDB ="M" + CDB.getMaxCreditCardID(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 		else if(msg.toString().charAt(0)=='r') {
 			try {
@@ -445,6 +466,15 @@ public class EchoServer extends AbstractServer
 		else if(msg.toString().charAt(0)=='U') {
 			try {
 				StringFromDB ="U!" + CDB.getCityRequest(msg);
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		else if(msg.toString().charAt(0)=='N') {
+			try {
+				StringFromDB ="N!" + CDB.getCreditCardCustomer(msg);
 			} catch (SSLException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

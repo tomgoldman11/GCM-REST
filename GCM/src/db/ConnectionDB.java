@@ -183,6 +183,14 @@ public class ConnectionDB {
 			update.close();
 			return;
 	 } 
+	public void insertCreditCard(Object msg) throws SSLException, SQLException {
+		 System.out.println("----- InsertingNewCreditCard -----");
+			PreparedStatement update = conn.prepareStatement(msg.toString().substring(1));
+			update.executeUpdate();
+			update.close();
+			return;
+	 } 
+	 
 	 
 	public void insertMapRequest(Object msg) throws SSLException, SQLException {
 		 System.out.println("----- InsertingNewMapRequest -----");
@@ -239,6 +247,17 @@ public class ConnectionDB {
 			 MaxRequestID = ansus.getString(1);
 		 }	
 		 System.out.println("THIS IS MAXREQUESTID : " + MaxRequestID );
+	     close();
+	     return MaxRequestID;
+	 }
+	 
+	 public String getMaxCreditCardID (Object msg) throws SSLException, SQLException { 
+		 System.out.println("----- GettingnMaxCreditCardID -----");
+		 ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		 while (ansus.next()) {     	
+			 MaxRequestID = ansus.getString(1);
+		 }	
+		 System.out.println("THIS IS MaxCreditCardID : " + MaxRequestID );
 	     close();
 	     return MaxRequestID;
 	 }
@@ -592,6 +611,24 @@ public class ConnectionDB {
 			String cityName = ansus.getString("cityName");
 			ansUser = cityID + "!" + description + "!" + mapClusterVersion + "!" + numberMaps + "!" 
 			+ numberTours + "!" + numberLocations + "!" + mapClusterPrice + "!" + cityName ; // add registerDATE HERE
+		}
+		return ansUser;
+	}
+	
+
+	public String getCreditCardCustomer(Object msg) throws SSLException, SQLException { 	
+		System.out.println("----- GetCreditCardCustomer -----");
+		ansUser = "42";
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
+		while (ansus.next()) {
+			String cardType = ansus.getString("cardType");
+			String cardNumber = ansus.getString("cardNumber");
+			String expireDate = ansus.getString("expireDate");
+			int cvv = ansus.getInt("cvv");
+			String address = ansus.getString("Address");
+			String fullName = ansus.getString("fullName");
+			ansUser = cardType + "!" + cardNumber + "!" + expireDate + "!" + cvv + "!" 
+			+ address + "!" + fullName  ; // add registerDATE HERE
 		}
 		return ansUser;
 	}
