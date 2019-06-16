@@ -406,6 +406,18 @@ public class EchoServer extends AbstractServer
 			}
 		}
 		
+		else if(msg.toString().charAt(0)=='_') {
+			try {
+				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
+				ArrayListFromDB = CDB.getCDforCustomerDetails(msg);
+				StringFromDB ="42";
+				sendToAllClients(ArrayListFromDB);			
+			} catch (SSLException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		else if(msg.toString().charAt(0)=='W') {
 			try {
 				ArrayList<String> ArrayListFromDB = new ArrayList<String>();
@@ -429,8 +441,6 @@ public class EchoServer extends AbstractServer
 				e.printStackTrace();
 			}
 		}
-		
-		
 		
 		else if(msg.toString().charAt(0)=='U') {
 			try {

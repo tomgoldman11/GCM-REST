@@ -596,6 +596,33 @@ public class ConnectionDB {
 		return ansUser;
 	}
 	
+	public ArrayList<String> getCDforCustomerDetails (Object msg) throws SSLException, SQLException {
+		 System.out.println("----- GettinCDforCustomerDeatails -----");
+		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1)); 
+		ArrayListFromDB.add("CDforCustomerDatils");  
+		while (ansus.next()) {
+			String userID = ansus.getString("userID");
+			int cusID = ansus.getInt("cusID");
+			int purchases = ansus.getInt("purchases");
+			String customerName = ansus.getString("customerName");
+			int age = ansus.getInt("age");
+			String phone = ansus.getString("phone");
+			String email = ansus.getString("email");
+			
+			ArrayListFromDB.add(userID);
+			ArrayListFromDB.add(Integer.toString(cusID));
+			ArrayListFromDB.add(Integer.toString(purchases));
+			ArrayListFromDB.add(customerName);
+			ArrayListFromDB.add(Integer.toString(age));
+			ArrayListFromDB.add(phone);
+			ArrayListFromDB.add(email);
+
+		}
+		ArrayList<String> copyArrayList = new ArrayList<String>(ArrayListFromDB);
+		ArrayListFromDB.clear();
+		return copyArrayList;
+	}
+	
 	public String getMapRequest(Object msg) throws SSLException, SQLException { 	
 		System.out.println("----- GetMapRequestDetails -----");
 		ResultSet ansus = stmt.executeQuery(msg.toString().substring(1));
