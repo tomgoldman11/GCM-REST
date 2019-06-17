@@ -19,7 +19,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-
+/**
+ *
+ */
 public class ConnectionDB {
     static private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static private final String DB = "c4EgFjQoFL"; // serial name of the database.
